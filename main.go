@@ -61,7 +61,13 @@ func main() {
 		leverage := nowPrice / spreads
 		num := lostMoney / spreads
 		callbackRate := spreads / nowPrice
-		activatedPrice := K*spreads + nowPrice
+		var activatedPrice float64
+		if nowPrice > lostPrice {
+			activatedPrice = K*spreads + nowPrice
+		} else {
+			activatedPrice = nowPrice - K*spreads
+		}
+
 		fmt.Println("杠杆倍数：", leverage)
 		fmt.Println("应开数量：", num)
 		fmt.Println("回调率：", callbackRate)
